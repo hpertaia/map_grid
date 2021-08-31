@@ -66,30 +66,29 @@ const MyLayer = () => {
 		],
 	};
 	const bbox = turf.bbox(bcGeo);
-	const largeGrid = turf.squareGrid(bbox, 20);
+	const largeGrid = turf.squareGrid(bbox, 100);
 
 	let largeGridItemIndex = 0;
 
 	largeGrid.features.forEach((gridItem) => {
-		if (largeGridItemIndex === 0) {
-			largeGrid.features[largeGridItemIndex] = {
-				...largeGrid.features[largeGridItemIndex],
-				gridItemId: largeGridItemIndex,
-			};
+		largeGrid.features[largeGridItemIndex] = {
+			...largeGrid.features[largeGridItemIndex],
+			gridItemId: largeGridItemIndex,
+		};
 
-			// const multiStringLine = splitPoly(gridItem, 2);
-			// let geoRes = gridItem;
-			// console.log(geoRes);
-			// multiStringLine.forEach((lineString) => {
-			// 	geoRes = polygonCut(gridItem, lineString, null);
-			// });
+		const multiStringLine = splitPoly(gridItem, 2);
+		let geoRes = gridItem;
+		// console.log(geoRes);
+		// multiStringLine.forEach((lineString) => {
+		// 	geoRes = polygonCut(gridItem, lineString, null);
+		// });
 
-			// L.geoJson(geoRes, {
-			// 	color: 'red',
-			// 	fillColor: '#ffffff',
-			// 	fillOpacity: 0.5,
-			// }).addTo(map);
-		}
+		L.geoJson(gridItem, {
+			color: 'red',
+			fillColor: '#ffffff',
+			fillOpacity: 0.5,
+		}).addTo(map);
+
 		largeGridItemIndex++;
 	});
 
